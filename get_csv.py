@@ -16,7 +16,7 @@ def get_properties(filenames, path):
 
     for filename in filenames:
       # define dict key
-      name				= filename[:-4]
+      name  = filename[:-4]
       # open orca output file and read lines
       f_log	= open(path + filename, "r")
       lines	= f_log.readlines()
