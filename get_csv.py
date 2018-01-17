@@ -23,14 +23,14 @@ def get_properties(filenames, path):
       f_log.close()
 
       # find line with the final forces, coordinates
-      indexF			= lines.index('The final MP2 gradient\n')
+      indexF		= lines.index('The final MP2 gradient\n')
       indexXYZ		= lines.index('CARTESIAN COORDINATES (ANGSTROEM)\n')
 
       # define np arrays
-      forces			= np.array([]).astype(float)
-      xyz					= np.array([]).astype(float)
+      forces		= np.array([]).astype(float)
+      xyz			= np.array([]).astype(float)
       atomTypes		= np.array([]).astype(str)
-      numAtoms    = 0
+      numAtoms      = 0
 
       # get forces and numAtoms
       for line in lines[indexF+1:]:
@@ -44,15 +44,15 @@ def get_properties(filenames, path):
       # get coordinates
       for line in lines[indexXYZ+2:indexXYZ+numAtoms+2]:
         tokens		= line.split()
-        xyz				= np.append(xyz, [[ float(tokens[1]), float(tokens[2]), float(tokens[3]) ]])
+        xyz			= np.append(xyz, [[ float(tokens[1]), float(tokens[2]), float(tokens[3]) ]])
         atomTypes	= np.append(atomTypes, tokens[0])
 
       # reshape np arrays (forces and coordinates)
-      forces			= forces.reshape(numAtoms,3)
-      xyz					= xyz.reshape(numAtoms,3)
+      forces		= forces.reshape(numAtoms,3)
+      xyz			= xyz.reshape(numAtoms,3)
 
       # get energies in a mp.array
-      energy			= float(lines[indexF+numAtoms+7].split()[4])*convE
+      energy		= float(lines[indexF+numAtoms+7].split()[4])*convE
 
       # dict with name as key and energies, forces, xyz, numAtoms, atomTypes as elements
       properties[name] = [energy, numAtoms, atomTypes, forces, xyz]
