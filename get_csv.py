@@ -64,7 +64,7 @@ if __name__ == "__main__":
   filenames = os.listdir(path)
   data = get_properties(filenames, path)
 
-  toprint = []
+  #toprint = []
 
   # get dict as list
   print "name, energy, numAtoms, atomTypes, forces, xyz"
