@@ -5,7 +5,7 @@ import numpy as np
 
 # Function to parse datafile to a dictionary
 def get_properties(filenames, path):
-    """ Returns a dictionary with energy and forces for each xyz-file.
+    """ Returns a dictionary with energy, number of atoms, atom types, forces and xyz coordinates.
     """
     # define dictionairies and constants
     properties = dict()
