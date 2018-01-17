@@ -23,33 +23,33 @@ def get_properties(filenames, path):
       f_log.close()
 
       # find line with the final forces, coordinates
-      indexF		= lines.index('The final MP2 gradient\n')
-      indexXYZ		= lines.index('CARTESIAN COORDINATES (ANGSTROEM)\n')
+      indexF    = lines.index('The final MP2 gradient\n')
+      indexXYZ  = lines.index('CARTESIAN COORDINATES (ANGSTROEM)\n')
 
       # define np arrays
-      forces		= np.array([]).astype(float)
-      xyz			= np.array([]).astype(float)
-      atomTypes		= np.array([]).astype(str)
-      numAtoms      = 0
+      forces    = np.array([]).astype(float)
+      xyz       = np.array([]).astype(float)
+      atomTypes = np.array([]).astype(str)
+      numAtoms  = 0
 
       # get forces and numAtoms
       for line in lines[indexF+1:]:
         tokens = line.strip()
         if tokens == '': break
 
-        tokens		= line.split()
-        forces		= np.append(forces, [[ float(tokens[1])*convF, float(tokens[2])*convF, float(tokens[3])*convF]] )
+        tokens  = line.split()
+        forces  = np.append(forces, [[ float(tokens[1])*convF, float(tokens[2])*convF, float(tokens[3])*convF]] )
         numAtoms += 1
 
       # get coordinates
       for line in lines[indexXYZ+2:indexXYZ+numAtoms+2]:
-        tokens		= line.split()
-        xyz			= np.append(xyz, [[ float(tokens[1]), float(tokens[2]), float(tokens[3]) ]])
-        atomTypes	= np.append(atomTypes, tokens[0])
+        tokens  = line.split()
+        xyz     = np.append(xyz, [[ float(tokens[1]), float(tokens[2]), float(tokens[3]) ]])
+        atomTypes = np.append(atomTypes, tokens[0])
 
       # reshape np arrays (forces and coordinates)
-      forces		= forces.reshape(numAtoms,3)
-      xyz			= xyz.reshape(numAtoms,3)
+      forces    = forces.reshape(numAtoms,3)
+      xyz       = xyz.reshape(numAtoms,3)
 
       # get energies in a mp.array
       energy		= float(lines[indexF+numAtoms+7].split()[4])*convE
